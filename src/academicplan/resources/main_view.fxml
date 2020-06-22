@@ -42,8 +42,8 @@
             </HBox.margin>
         </Button>
     </HBox>
-    <HBox fx:id="practiciesPanel" visible="false" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-        <ListView fx:id="practiciesListView" prefHeight="410.0" prefWidth="720.0" />
+    <HBox fx:id="practicesPanel" visible="false" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <ListView fx:id="practicesListView" prefHeight="410.0" prefWidth="720.0" />
     </HBox>
     <HBox fx:id="semestersPanel" prefHeight="100.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <ListView fx:id="semestersListView" prefHeight="410.0" prefWidth="720.0" />

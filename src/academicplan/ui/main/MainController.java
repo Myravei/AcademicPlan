@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import academicplan.database.DatabaseHandler;
 import academicplan.models.Discipline;
+import academicplan.models.Practice;
 import academicplan.ui.discipline.DisciplineController;
 import academicplan.ui.semester.SemesterController;
 import javafx.collections.FXCollections;
@@ -50,7 +51,7 @@ public class MainController {
     private HBox disciplinesPanel;
 
     @FXML
-    private HBox practiciesPanel;
+    private HBox practicesPanel;
 
     @FXML
     private HBox semestersPanel;
@@ -59,7 +60,7 @@ public class MainController {
     private ListView<Discipline> disciplinesListView;
 
     @FXML
-    private ListView<?> practiciesListView;
+    private ListView<Practice> practicesListView;
 
     @FXML
     private ListView<Integer> semestersListView;
@@ -78,7 +79,11 @@ public class MainController {
             disciplinesListView.setItems(disciplineList);
         });
         openDisciplineButton.setOnAction(actionEvent -> openDiscipline(disciplinesListView.getSelectionModel().getSelectedItem()));
-        practicesButton.setOnAction(actionEvent -> showPanel(practiciesPanel));
+        practicesButton.setOnAction(actionEvent -> {
+            showPanel(practicesPanel);
+            ObservableList<Practice> practiceList = FXCollections.observableList(model.getPracticeList());
+            practicesListView.setItems(practiceList);
+        });
         semestersButton.setOnAction(actionEvent -> {
             showPanel(semestersPanel);
             ObservableList<Integer> semesterList = FXCollections.observableArrayList(1,2,3,4,5,6,7,8);
@@ -90,7 +95,7 @@ public class MainController {
 
     private void showPanel(HBox panel){
         disciplinesPanel.setVisible(panel.getId().equals(disciplinesPanel.getId()));
-        practiciesPanel.setVisible(panel.getId().equals(practiciesPanel.getId()));
+        practicesPanel.setVisible(panel.getId().equals(practicesPanel.getId()));
         semestersPanel.setVisible(panel.getId().equals(semestersPanel.getId()));
     }
 
