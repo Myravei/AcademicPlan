@@ -71,6 +71,7 @@ public class MainController {
     @FXML
     void initialize() {
         model.setDisciplineList(dbHandler.getDisciplines());
+        model.setPracticeList(dbHandler.getPractices());
         disciplinesButton.setOnAction(actionEvent -> {
             showPanel(disciplinesPanel);
             ObservableList<Discipline> disciplineList = FXCollections.observableList(model.getDisciplineList());
