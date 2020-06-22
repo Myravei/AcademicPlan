@@ -1,4 +1,4 @@
-package academicplan.main;
+package academicplan.ui.main;
 
 import academicplan.models.Discipline;
 
