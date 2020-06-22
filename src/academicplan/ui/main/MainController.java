@@ -90,9 +90,9 @@ public class MainController {
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setOpacity(1);
-            stage.setTitle(discipline.getName());
+            stage.setTitle(discipline.getName()+" ("+discipline.getSemester()+" семестр)");
             stage.setScene(new Scene(root,280,280));
+            stage.setResizable(false);
             DisciplineController controller = loader.getController();
             controller.setData(discipline);
             stage.show();
