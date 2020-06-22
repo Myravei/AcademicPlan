@@ -52,6 +52,15 @@ public class MainController {
 
     @FXML
     void initialize() {
+        disciplinesButton.setOnAction(actionEvent -> showPanel(disciplinesPanel));
+        practicesButton.setOnAction(actionEvent -> showPanel(practiciesPanel));
+        semestersButton.setOnAction(actionEvent -> showPanel(semestersPanel));
+        searchButton.setOnAction(actionEvent -> {});
+    }
 
+    void showPanel(HBox panel){
+        disciplinesPanel.setVisible(panel.getId().equals(disciplinesPanel.getId()));
+        practiciesPanel.setVisible(panel.getId().equals(practiciesPanel.getId()));
+        semestersPanel.setVisible(panel.getId().equals(semestersPanel.getId()));
     }
 }
