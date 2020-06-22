@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import academicplan.database.DatabaseHandler;
 import academicplan.models.Discipline;
 import academicplan.ui.discipline.DisciplineController;
+import academicplan.ui.semester.SemesterController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,6 +44,9 @@ public class MainController {
     private Button openDisciplineButton;
 
     @FXML
+    private Button openSemesterButton;
+
+    @FXML
     private HBox disciplinesPanel;
 
     @FXML
@@ -58,7 +62,7 @@ public class MainController {
     private ListView<?> practiciesListView;
 
     @FXML
-    private ListView<?> semestersListView;
+    private ListView<Integer> semestersListView;
 
     private final MainModel model = new MainModel();
 
@@ -74,7 +78,12 @@ public class MainController {
         });
         openDisciplineButton.setOnAction(actionEvent -> openDiscipline(disciplinesListView.getSelectionModel().getSelectedItem()));
         practicesButton.setOnAction(actionEvent -> showPanel(practiciesPanel));
-        semestersButton.setOnAction(actionEvent -> showPanel(semestersPanel));
+        semestersButton.setOnAction(actionEvent -> {
+            showPanel(semestersPanel);
+            ObservableList<Integer> semesterList = FXCollections.observableArrayList(1,2,3,4,5,6,7,8);
+            semestersListView.setItems(semesterList);
+        });
+        openSemesterButton.setOnAction(actionEvent -> openSemester(semestersListView.getSelectionModel().getSelectedItem()));
         searchButton.setOnAction(actionEvent -> {});
     }
 
@@ -86,7 +95,7 @@ public class MainController {
 
     void openDiscipline(Discipline discipline){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../resources/discipline_view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/discipline_view.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -95,6 +104,23 @@ public class MainController {
             stage.setResizable(false);
             DisciplineController controller = loader.getController();
             controller.setData(discipline);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void openSemester(Integer semester){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/semester_view.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(semester+" семестр");
+            stage.setScene(new Scene(root,600,400));
+            stage.setResizable(false);
+            SemesterController controller = loader.getController();
+            controller.setData(model.getDisciplineList());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
