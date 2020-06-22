@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import academicplan.database.DatabaseHandler;
+import academicplan.models.Discipline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -33,7 +36,7 @@ public class MainController {
     private HBox disciplinesPanel;
 
     @FXML
-    private ListView<?> disciplinesListView;
+    private ListView<Discipline> disciplinesListView;
 
     @FXML
     private Button openDisciplineButton;
@@ -57,7 +60,11 @@ public class MainController {
     @FXML
     void initialize() {
         model.setDisciplineList(dbHandler.getDisciplines());
-        disciplinesButton.setOnAction(actionEvent -> showPanel(disciplinesPanel));
+        disciplinesButton.setOnAction(actionEvent -> {
+            showPanel(disciplinesPanel);
+            ObservableList<Discipline> disciplineList = FXCollections.observableList(model.getDisciplineList());
+            disciplinesListView.setItems(disciplineList);
+        });
         practicesButton.setOnAction(actionEvent -> showPanel(practiciesPanel));
         semestersButton.setOnAction(actionEvent -> showPanel(semestersPanel));
         searchButton.setOnAction(actionEvent -> {});
