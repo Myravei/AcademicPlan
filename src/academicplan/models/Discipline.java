@@ -94,4 +94,9 @@ public class Discipline {
     public void setCoursework(boolean coursework) {
         this.coursework = coursework;
     }
+
+    @Override
+    public String toString() {
+        return name+" ("+semester+" сем.)";
+    }
 }
