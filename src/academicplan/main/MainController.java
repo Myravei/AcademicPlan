@@ -2,6 +2,8 @@ package academicplan.main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import academicplan.database.DatabaseHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -48,10 +50,13 @@ public class MainController {
     @FXML
     private ListView<?> semestersListView;
 
-    private MainModel model = new MainModel();
+    private final MainModel model = new MainModel();
+
+    private final DatabaseHandler dbHandler = new DatabaseHandler();
 
     @FXML
     void initialize() {
+        model.setDisciplineList(dbHandler.getDisciplines());
         disciplinesButton.setOnAction(actionEvent -> showPanel(disciplinesPanel));
         practicesButton.setOnAction(actionEvent -> showPanel(practiciesPanel));
         semestersButton.setOnAction(actionEvent -> showPanel(semestersPanel));
