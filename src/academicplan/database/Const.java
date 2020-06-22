@@ -11,4 +11,10 @@ public class Const {
     public static final String DISCIPLINE_TRUDOEMKOST = "trudoemkost";
     public static final String DISCIPLINE_CONTROL = "control";
     public static final String DISCIPLINE_COURSEWORK = "coursework";
+
+    public static final String PRACTICE_TABLE = "practices";
+    public static final String PRACTICE_ID = "id";
+    public static final String PRACTICE_SEMESTER = "semester";
+    public static final String PRACTICE_DURATION = "duration";
+    public static final String PRACTICE_TYPE = "type";
 }

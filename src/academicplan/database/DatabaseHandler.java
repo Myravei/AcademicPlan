@@ -1,6 +1,7 @@
 package academicplan.database;
 
 import academicplan.models.Discipline;
+import academicplan.models.Practice;
 
 import java.util.ArrayList;
 import java.sql.*;
@@ -35,5 +36,24 @@ public class DatabaseHandler extends Configs{
             ex.printStackTrace();
         }
         return disciplines;
+    }
+
+    public ArrayList<Practice> getPractices(){
+        ArrayList<Practice> practices = new ArrayList<>();
+        try(
+                Statement statement = getDbConnection().createStatement();
+                ResultSet set = statement.executeQuery("Select * From " + Const.PRACTICE_TABLE)
+                ) {
+            while (set.next()){
+                int id = set.getInt(Const.PRACTICE_ID);
+                int semester = set.getInt(Const.PRACTICE_SEMESTER);
+                int duration = set.getInt(Const.PRACTICE_DURATION);
+                String type = set.getString(Const.PRACTICE_TYPE);
+                practices.add(new Practice(id, semester, duration, type));
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return practices;
     }
 }
