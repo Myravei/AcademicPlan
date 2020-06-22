@@ -99,4 +99,8 @@ public class Discipline {
     public String toString() {
         return name+" ("+semester+" сем.)";
     }
+
+    public String toStringWithControl() {
+        return name+": "+control+(coursework?", курсовая":"");
+    }
 }

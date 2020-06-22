@@ -87,13 +87,13 @@ public class MainController {
         searchButton.setOnAction(actionEvent -> {});
     }
 
-    void showPanel(HBox panel){
+    private void showPanel(HBox panel){
         disciplinesPanel.setVisible(panel.getId().equals(disciplinesPanel.getId()));
         practiciesPanel.setVisible(panel.getId().equals(practiciesPanel.getId()));
         semestersPanel.setVisible(panel.getId().equals(semestersPanel.getId()));
     }
 
-    void openDiscipline(Discipline discipline){
+    private void openDiscipline(Discipline discipline){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/discipline_view.fxml"));
             Parent root = loader.load();
@@ -110,7 +110,7 @@ public class MainController {
         }
     }
 
-    void openSemester(Integer semester){
+    private void openSemester(Integer semester){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/semester_view.fxml"));
             Parent root = loader.load();
@@ -120,7 +120,7 @@ public class MainController {
             stage.setScene(new Scene(root,600,400));
             stage.setResizable(false);
             SemesterController controller = loader.getController();
-            controller.setData(model.getDisciplineList());
+            controller.setData(model.getDisciplineList(), semester);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
