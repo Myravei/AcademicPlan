@@ -2,10 +2,12 @@ package academicplan.database;
 
 import academicplan.models.Discipline;
 import academicplan.models.Practice;
-
 import java.util.ArrayList;
 import java.sql.*;
 
+/**
+ * Обработчик базы данных для получения дисциплин и практик
+ */
 public class DatabaseHandler extends Configs{
 
     public Connection getDbConnection() throws ClassNotFoundException, SQLException {
@@ -14,6 +16,9 @@ public class DatabaseHandler extends Configs{
         return DriverManager.getConnection(connectionString, dbUser, dbPass);
     }
 
+    /**
+     * Метод для получения дисциплин из базы данных
+     */
     public ArrayList<Discipline> getDisciplines() {
         ArrayList<Discipline> disciplines = new ArrayList<>();
         try(
@@ -38,6 +43,9 @@ public class DatabaseHandler extends Configs{
         return disciplines;
     }
 
+    /**
+     * Метод для получения практик из базы данных
+     */
     public ArrayList<Practice> getPractices(){
         ArrayList<Practice> practices = new ArrayList<>();
         try(

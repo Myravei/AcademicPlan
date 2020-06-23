@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-
 import academicplan.models.Discipline;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -15,6 +14,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Контроллер окна поиска
+ */
 public class SearchController {
 
     @FXML
@@ -84,7 +86,7 @@ public class SearchController {
 
     @FXML
     void initialize() {
-        semesterComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
+        semesterComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8)); //Установка списка семестров в ComboBox
         disciplineSemesterComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
         trudSemesterCB.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
 
@@ -100,16 +102,25 @@ public class SearchController {
         trudSemesterCB.setOnAction(actionEvent -> setTrudoemkostView());
     }
 
+    /**
+     * Метод для записи списка дисциплин в модель
+     */
     public void setData(ArrayList<Discipline> disciplines) {
         model.setDisciplineList(disciplines);
     }
 
+    /**
+     * Метод для установки видимости панелей
+     */
     void showPanel(AnchorPane panel) {
         semesterPanel.setVisible(panel.getId().equals(semesterPanel.getId()));
         disciplinesPanel.setVisible(panel.getId().equals(disciplinesPanel.getId()));
         trudoemkostPanel.setVisible(panel.getId().equals(trudoemkostPanel.getId()));
     }
 
+    /**
+     * Обновление списка экзаменов, экзаменов и курсовых
+     */
     void updateListLabel() {
         int exams = 0, zachets = 0, works = 0;
         for (Discipline d : model.getDisciplineList()) {
@@ -128,6 +139,9 @@ public class SearchController {
         listLabel.setText(zachets + " зачётов, " + exams + " экзаменов, " + works + " курсовых");
     }
 
+    /**
+     * Метод для фильтрации списка дисциплин по указанным параметрам
+     */
     void searchDisciplines() {
         ArrayList<Discipline> filtered = new ArrayList<>();
         for (Discipline d : model.getDisciplineList()) {
@@ -153,6 +167,9 @@ public class SearchController {
         disciplinesListView.setItems(FXCollections.observableList(filtered));
     }
 
+    /**
+     * Метод для установки рейтинга трудоёмкости
+     */
     void setTrudoemkostView() {
         ArrayList<String> disciplines = new ArrayList<>();
         model.getDisciplineList().sort(Comparator.comparingInt(Discipline::getTrudoemkost));

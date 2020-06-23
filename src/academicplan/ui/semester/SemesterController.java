@@ -14,10 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Контроллер окна семестра
+ */
 public class SemesterController {
 
     @FXML
@@ -32,10 +34,10 @@ public class SemesterController {
     @FXML
     private Button openDisciplineButton;
 
-    private int disciplinesCounter = 0;
-    private int zachetCounter = 0;
-    private int examCounter = 0;
-    private int courseWorkCounter = 0;
+    private int disciplinesCounter = 0; //Счётчик дисциплин
+    private int zachetCounter = 0; //Счётчик зачётов
+    private int examCounter = 0; //Счётчик экзаменов
+    private int courseWorkCounter = 0; //Счётчик курсовых работ
 
     private final DatabaseHandler dbHandler = new DatabaseHandler();
 
@@ -46,6 +48,9 @@ public class SemesterController {
         openDisciplineButton.setOnAction(actionEvent -> openDiscipline(disciplinesListView.getSelectionModel().getSelectedItem()));
     }
 
+    /**
+     * Установка данных окна
+     */
     public void setData(ArrayList<Discipline> disciplines, Integer semester){
         model.setDisciplines(disciplines);
         model.setSemester(semester);
@@ -69,15 +74,18 @@ public class SemesterController {
         disciplinesListView.setItems(disciplinesList);
     }
 
+    /**
+     * Метод для открытия окна дисциплин
+     */
     private void openDiscipline(String disciplineString){
         Discipline discipline = null;
-        for (Discipline d: model.getDisciplines()) {
-            if(disciplineString.contains(d.getName()) && d.getSemester()==model.getSemester()){
+        for (Discipline d: model.getDisciplines()) { //Цикл по дисциплинам
+            if(disciplineString.contains(d.getName()) && d.getSemester()==model.getSemester()){ //Если совпадают имя и семестр
                 discipline = d;
             }
         }
-        if (discipline==null) return;
-        try {
+        if (discipline==null) return; //Если такая дисциплина не найдена, то выход из функции
+        try { //Открытие окна дисциплины
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/discipline_view.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();

@@ -1,5 +1,8 @@
 package academicplan.database;
 
+/**
+ * Константы названий таблиц и их полей
+ */
 public class Const {
     public static final String DISCIPLINE_TABLE = "disciplines";
     public static final String DISCIPLINE_ID = "id";

@@ -2,6 +2,9 @@ package academicplan.ui.discipline;
 
 import academicplan.models.Discipline;
 
+/**
+ * Модель окна дисциплины
+ */
 public class DisciplineModel {
 
     private Discipline discipline;

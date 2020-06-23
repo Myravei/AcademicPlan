@@ -4,6 +4,9 @@ import academicplan.models.Discipline;
 
 import java.util.ArrayList;
 
+/**
+ * Модель окна семестра
+ */
 public class SemesterModel {
 
     private ArrayList<Discipline> disciplines = new ArrayList<>();

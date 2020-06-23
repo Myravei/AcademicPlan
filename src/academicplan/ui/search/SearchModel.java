@@ -4,6 +4,9 @@ import academicplan.models.Discipline;
 
 import java.util.ArrayList;
 
+/**
+ * Модель окна поиска
+ */
 public class SearchModel {
 
     private ArrayList<Discipline> disciplineList;

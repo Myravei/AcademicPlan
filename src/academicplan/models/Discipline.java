@@ -1,5 +1,8 @@
 package academicplan.models;
 
+/**
+ * Класс дисциплина
+ */
 public class Discipline {
     private int id;
     private int semester;

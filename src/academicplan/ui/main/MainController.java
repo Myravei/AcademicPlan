@@ -3,7 +3,6 @@ package academicplan.ui.main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import academicplan.database.DatabaseHandler;
 import academicplan.models.Discipline;
 import academicplan.models.Practice;
@@ -22,6 +21,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Контроллер главного окна
+ */
 public class MainController {
 
     @FXML
@@ -72,34 +74,40 @@ public class MainController {
 
     @FXML
     void initialize() {
-        model.setDisciplineList(dbHandler.getDisciplines());
-        model.setPracticeList(dbHandler.getPractices());
+        model.setDisciplineList(dbHandler.getDisciplines()); //Получение дисциплин из базы данных
+        model.setPracticeList(dbHandler.getPractices()); //Получение практик из базы данных
         disciplinesButton.setOnAction(actionEvent -> {
             showPanel(disciplinesPanel);
             ObservableList<Discipline> disciplineList = FXCollections.observableList(model.getDisciplineList());
-            disciplinesListView.setItems(disciplineList);
+            disciplinesListView.setItems(disciplineList); //Установка объектов дисциплин в ListView
         });
         openDisciplineButton.setOnAction(actionEvent -> openDiscipline(disciplinesListView.getSelectionModel().getSelectedItem()));
         practicesButton.setOnAction(actionEvent -> {
             showPanel(practicesPanel);
             ObservableList<Practice> practiceList = FXCollections.observableList(model.getPracticeList());
-            practicesListView.setItems(practiceList);
+            practicesListView.setItems(practiceList); //Установка объектов практик в ListView
         });
         semestersButton.setOnAction(actionEvent -> {
             showPanel(semestersPanel);
             ObservableList<Integer> semesterList = FXCollections.observableArrayList(1,2,3,4,5,6,7,8);
-            semestersListView.setItems(semesterList);
+            semestersListView.setItems(semesterList); //Установка объектов семестров в ListView
         });
         openSemesterButton.setOnAction(actionEvent -> openSemester(semestersListView.getSelectionModel().getSelectedItem()));
         searchButton.setOnAction(actionEvent -> openSearch());
     }
 
+    /**
+     * Метод для установки видимости панелей
+     */
     private void showPanel(HBox panel){
         disciplinesPanel.setVisible(panel.getId().equals(disciplinesPanel.getId()));
         practicesPanel.setVisible(panel.getId().equals(practicesPanel.getId()));
         semestersPanel.setVisible(panel.getId().equals(semestersPanel.getId()));
     }
 
+    /**
+     * Метод для открытия окна дисциплины
+     */
     private void openDiscipline(Discipline discipline){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/discipline_view.fxml"));
@@ -117,6 +125,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Метод для открытия окна семестра
+     */
     private void openSemester(Integer semester){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/semester_view.fxml"));
@@ -134,6 +145,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Метод для открытия окна поиска
+     */
     private void openSearch(){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/search_view.fxml"));

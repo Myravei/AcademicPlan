@@ -5,6 +5,9 @@ import academicplan.models.Practice;
 
 import java.util.ArrayList;
 
+/**
+ * Модель главного окна
+ */
 public class MainModel {
 
     private ArrayList<Discipline> disciplineList = new ArrayList<>();

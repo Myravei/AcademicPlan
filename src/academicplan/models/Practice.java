@@ -1,5 +1,8 @@
 package academicplan.models;
 
+/**
+ * Класс практика
+ */
 public class Practice {
 
     private int id;

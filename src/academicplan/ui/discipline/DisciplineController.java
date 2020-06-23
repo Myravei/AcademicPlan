@@ -2,11 +2,13 @@ package academicplan.ui.discipline;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import academicplan.models.Discipline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Контроллер окна дисциплины
+ */
 public class DisciplineController {
 
     @FXML
@@ -38,6 +40,9 @@ public class DisciplineController {
     @FXML
     void initialize() {}
 
+    /**
+     * Метод для инициализации данных окна
+     */
     public void setData(Discipline discipline){
         model.setDiscipline(discipline);
         switch (discipline.getLectures()) {
