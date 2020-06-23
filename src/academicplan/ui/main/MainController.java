@@ -144,7 +144,7 @@ public class MainController {
             stage.setScene(new Scene(root, 600, 400));
             stage.setResizable(false);
             SearchController controller = loader.getController();
-
+            controller.setData(model.getDisciplineList());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -20,10 +20,7 @@
    </HBox>
    <AnchorPane fx:id="semesterPanel" layoutX="2.0" layoutY="40.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
       <ComboBox fx:id="semesterComboBox" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
-      <CheckBox fx:id="zachetCheckBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="Зачёты" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="55.0" />
-      <CheckBox fx:id="examCheckBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="Экзамены" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="80.0" />
-      <CheckBox fx:id="courseWorkCheckBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="Курсовые" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="105.0" />
-      <Label fx:id="listLabel" alignment="CENTER" prefHeight="16.0" prefWidth="390.0" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="184.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="184.0" />
+      <Label fx:id="listLabel" alignment="CENTER" prefHeight="20.0" prefWidth="540.0" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="184.0" />
    </AnchorPane>
    <AnchorPane fx:id="disciplinesPanel" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
       <ComboBox fx:id="disciplineSemesterComboBox" layoutX="14.0" layoutY="14.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />

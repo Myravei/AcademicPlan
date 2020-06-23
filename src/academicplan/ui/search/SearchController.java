@@ -38,15 +38,6 @@ public class SearchController {
     private ComboBox<Integer> semesterComboBox;
 
     @FXML
-    private CheckBox zachetCheckBox;
-
-    @FXML
-    private CheckBox examCheckBox;
-
-    @FXML
-    private CheckBox courseWorkCheckBox;
-
-    @FXML
     private Label listLabel;
 
     @FXML
@@ -89,21 +80,41 @@ public class SearchController {
 
     @FXML
     void initialize() {
-        semesterComboBox.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8));
-        disciplineSemesterComboBox.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8));
-        trudSemesterCB.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8));
+        semesterComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
+        disciplineSemesterComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
+        trudSemesterCB.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
         semesterButton.setOnAction(actionEvent -> showPanel(semesterPanel));
         disciplinesButton.setOnAction(actionEvent -> showPanel(disciplinesPanel));
         trudoemkostButton.setOnAction(actionEvent -> showPanel(trudoemkostPanel));
+
+        semesterComboBox.setOnAction(actionEvent -> updateListLabel());
     }
 
-    void setData(ArrayList<Discipline> disciplines){
+    public void setData(ArrayList<Discipline> disciplines) {
         model.setDisciplineList(disciplines);
     }
 
-    void showPanel(AnchorPane panel){
+    void showPanel(AnchorPane panel) {
         semesterPanel.setVisible(panel.getId().equals(semesterPanel.getId()));
         disciplinesPanel.setVisible(panel.getId().equals(disciplinesPanel.getId()));
         trudoemkostPanel.setVisible(panel.getId().equals(trudoemkostPanel.getId()));
+    }
+
+    void updateListLabel() {
+        int exams = 0, zachets = 0, works = 0;
+        for (Discipline d : model.getDisciplineList()) {
+            if(d.getSemester()==semesterComboBox.getSelectionModel().getSelectedItem()){
+                if (d.getControl().toLowerCase().equals("зачёт")) {
+                    zachets++;
+                }
+                if (d.getControl().toLowerCase().equals("экзамен")) {
+                    exams++;
+                }
+                if(d.isCoursework()) {
+                    works++;
+                }
+            }
+        }
+        listLabel.setText(zachets+" зачётов, "+exams+" экзаменов, "+works+" курсовых");
     }
 }
