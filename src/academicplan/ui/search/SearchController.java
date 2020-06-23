@@ -2,6 +2,7 @@ package academicplan.ui.search;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import academicplan.models.Discipline;
@@ -77,7 +78,7 @@ public class SearchController {
     private ComboBox<Integer> trudSemesterCB;
 
     @FXML
-    private ListView<?> trudoemkostListView;
+    private ListView<String> trudoemkostListView;
 
     private final SearchModel model = new SearchModel();
 
@@ -86,12 +87,17 @@ public class SearchController {
         semesterComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
         disciplineSemesterComboBox.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
         trudSemesterCB.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8));
+
         semesterButton.setOnAction(actionEvent -> showPanel(semesterPanel));
         disciplinesButton.setOnAction(actionEvent -> showPanel(disciplinesPanel));
-        trudoemkostButton.setOnAction(actionEvent -> showPanel(trudoemkostPanel));
+        trudoemkostButton.setOnAction(actionEvent -> {
+            showPanel(trudoemkostPanel);
+            setTrudoemkostView();
+        });
 
         semesterComboBox.setOnAction(actionEvent -> updateListLabel());
         searchDisciplinesButton.setOnAction(actionEvent -> searchDisciplines());
+        trudSemesterCB.setOnAction(actionEvent -> setTrudoemkostView());
     }
 
     public void setData(ArrayList<Discipline> disciplines) {
@@ -123,7 +129,7 @@ public class SearchController {
     }
 
     void searchDisciplines() {
-        ArrayList<Discipline> filtred = new ArrayList<>();
+        ArrayList<Discipline> filtered = new ArrayList<>();
         for (Discipline d : model.getDisciplineList()) {
             if(disciplineSemesterComboBox.getSelectionModel().getSelectedItem()!=null){
                 if(d.getSemester()!=disciplineSemesterComboBox.getSelectionModel().getSelectedItem()){
@@ -131,19 +137,33 @@ public class SearchController {
                 }
             }
             if (d.getLaboratories() != 0 && disciplinesLabCB.isSelected()) {
-                filtred.add(d);
+                filtered.add(d);
             } else if (d.getPractices() != 0 && disciplinesPrCB.isSelected()) {
-                filtred.add(d);
+                filtered.add(d);
             } else if (d.getLectures() != 0 && disciplinesLecCB.isSelected()) {
-                filtred.add(d);
+                filtered.add(d);
             } else if (d.isCoursework() && disciplinesCourseWorksCB.isSelected()) {
-                filtred.add(d);
+                filtered.add(d);
             } else if (d.getControl().toLowerCase().equals("зачёт") && disciplinesZachetCB.isSelected()) {
-                filtred.add(d);
+                filtered.add(d);
             } else if (d.getControl().toLowerCase().equals("экзамен") && disciplinesExamsCB.isSelected()) {
-                filtred.add(d);
+                filtered.add(d);
             }
         }
-        disciplinesListView.setItems(FXCollections.observableList(filtred));
+        disciplinesListView.setItems(FXCollections.observableList(filtered));
+    }
+
+    void setTrudoemkostView() {
+        ArrayList<String> disciplines = new ArrayList<>();
+        model.getDisciplineList().sort(Comparator.comparingInt(Discipline::getTrudoemkost));
+        for(Discipline d: model.getDisciplineList()){
+            if(trudSemesterCB.getSelectionModel().getSelectedItem()!=null){
+                if(d.getSemester() != trudSemesterCB.getSelectionModel().getSelectedItem()){
+                    continue;
+                }
+            }
+            disciplines.add(d.getName()+", трудоёмкость: "+d.getTrudoemkost());
+        }
+        trudoemkostListView.setItems(FXCollections.observableArrayList(disciplines));
     }
 }
