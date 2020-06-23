@@ -65,7 +65,7 @@ public class SemesterController {
             }
         }
         disciplinesLabel.setText(disciplinesCounter+" дисциплин:");
-        summaryLabel.setText("Зачётов: "+zachetCounter+", экзаменов: "+examCounter+" курсовых: "+courseWorkCounter);
+        summaryLabel.setText("Зачётов: "+zachetCounter+", экзаменов: "+examCounter+", курсовых: "+courseWorkCounter);
         disciplinesListView.setItems(disciplinesList);
     }
 

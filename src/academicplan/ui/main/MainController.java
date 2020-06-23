@@ -8,6 +8,7 @@ import academicplan.database.DatabaseHandler;
 import academicplan.models.Discipline;
 import academicplan.models.Practice;
 import academicplan.ui.discipline.DisciplineController;
+import academicplan.ui.search.SearchController;
 import academicplan.ui.semester.SemesterController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,7 +91,7 @@ public class MainController {
             semestersListView.setItems(semesterList);
         });
         openSemesterButton.setOnAction(actionEvent -> openSemester(semestersListView.getSelectionModel().getSelectedItem()));
-        searchButton.setOnAction(actionEvent -> {});
+        searchButton.setOnAction(actionEvent -> openSearch());
     }
 
     private void showPanel(HBox panel){
@@ -127,6 +128,23 @@ public class MainController {
             stage.setResizable(false);
             SemesterController controller = loader.getController();
             controller.setData(model.getDisciplineList(), semester);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openSearch(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/search_view.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Поиск");
+            stage.setScene(new Scene(root, 600, 400));
+            stage.setResizable(false);
+            SearchController controller = loader.getController();
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

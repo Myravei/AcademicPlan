@@ -1,7 +1,11 @@
 package academicplan.ui.search;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import academicplan.models.Discipline;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -31,7 +35,7 @@ public class SearchController {
     private AnchorPane semesterPanel;
 
     @FXML
-    private ComboBox<?> semesterComboBox;
+    private ComboBox<Integer> semesterComboBox;
 
     @FXML
     private CheckBox zachetCheckBox;
@@ -49,7 +53,7 @@ public class SearchController {
     private AnchorPane disciplinesPanel;
 
     @FXML
-    private ComboBox<?> disciplineSemesterComboBox;
+    private ComboBox<Integer> disciplineSemesterComboBox;
 
     @FXML
     private CheckBox disciplinesLabCB;
@@ -76,13 +80,30 @@ public class SearchController {
     private AnchorPane trudoemkostPanel;
 
     @FXML
-    private ComboBox<?> trudSemesterCB;
+    private ComboBox<Integer> trudSemesterCB;
 
     @FXML
     private ListView<?> trudoemkostListView;
 
+    private final SearchModel model = new SearchModel();
+
     @FXML
     void initialize() {
+        semesterComboBox.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8));
+        disciplineSemesterComboBox.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8));
+        trudSemesterCB.setItems(FXCollections.observableArrayList(1,2,3,4,5,6,7,8));
+        semesterButton.setOnAction(actionEvent -> showPanel(semesterPanel));
+        disciplinesButton.setOnAction(actionEvent -> showPanel(disciplinesPanel));
+        trudoemkostButton.setOnAction(actionEvent -> showPanel(trudoemkostPanel));
+    }
 
+    void setData(ArrayList<Discipline> disciplines){
+        model.setDisciplineList(disciplines);
+    }
+
+    void showPanel(AnchorPane panel){
+        semesterPanel.setVisible(panel.getId().equals(semesterPanel.getId()));
+        disciplinesPanel.setVisible(panel.getId().equals(disciplinesPanel.getId()));
+        trudoemkostPanel.setVisible(panel.getId().equals(trudoemkostPanel.getId()));
     }
 }
