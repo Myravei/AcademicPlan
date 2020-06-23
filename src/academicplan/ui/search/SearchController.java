@@ -17,6 +17,9 @@ import javafx.scene.layout.AnchorPane;
 public class SearchController {
 
     @FXML
+    private Button searchDisciplinesButton;
+
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -65,7 +68,7 @@ public class SearchController {
     private CheckBox disciplinesExamsCB;
 
     @FXML
-    private ListView<?> disciplinesListView;
+    private ListView<Discipline> disciplinesListView;
 
     @FXML
     private AnchorPane trudoemkostPanel;
@@ -88,6 +91,7 @@ public class SearchController {
         trudoemkostButton.setOnAction(actionEvent -> showPanel(trudoemkostPanel));
 
         semesterComboBox.setOnAction(actionEvent -> updateListLabel());
+        searchDisciplinesButton.setOnAction(actionEvent -> searchDisciplines());
     }
 
     public void setData(ArrayList<Discipline> disciplines) {
@@ -103,18 +107,43 @@ public class SearchController {
     void updateListLabel() {
         int exams = 0, zachets = 0, works = 0;
         for (Discipline d : model.getDisciplineList()) {
-            if(d.getSemester()==semesterComboBox.getSelectionModel().getSelectedItem()){
+            if (d.getSemester() == semesterComboBox.getSelectionModel().getSelectedItem()) {
                 if (d.getControl().toLowerCase().equals("зачёт")) {
                     zachets++;
                 }
                 if (d.getControl().toLowerCase().equals("экзамен")) {
                     exams++;
                 }
-                if(d.isCoursework()) {
+                if (d.isCoursework()) {
                     works++;
                 }
             }
         }
-        listLabel.setText(zachets+" зачётов, "+exams+" экзаменов, "+works+" курсовых");
+        listLabel.setText(zachets + " зачётов, " + exams + " экзаменов, " + works + " курсовых");
+    }
+
+    void searchDisciplines() {
+        ArrayList<Discipline> filtred = new ArrayList<>();
+        for (Discipline d : model.getDisciplineList()) {
+            if(disciplineSemesterComboBox.getSelectionModel().getSelectedItem()!=null){
+                if(d.getSemester()!=disciplineSemesterComboBox.getSelectionModel().getSelectedItem()){
+                    continue;
+                }
+            }
+            if (d.getLaboratories() != 0 && disciplinesLabCB.isSelected()) {
+                filtred.add(d);
+            } else if (d.getPractices() != 0 && disciplinesPrCB.isSelected()) {
+                filtred.add(d);
+            } else if (d.getLectures() != 0 && disciplinesLecCB.isSelected()) {
+                filtred.add(d);
+            } else if (d.isCoursework() && disciplinesCourseWorksCB.isSelected()) {
+                filtred.add(d);
+            } else if (d.getControl().toLowerCase().equals("зачёт") && disciplinesZachetCB.isSelected()) {
+                filtred.add(d);
+            } else if (d.getControl().toLowerCase().equals("экзамен") && disciplinesExamsCB.isSelected()) {
+                filtred.add(d);
+            }
+        }
+        disciplinesListView.setItems(FXCollections.observableList(filtred));
     }
 }
